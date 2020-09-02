@@ -4,7 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import run.victor.freemarket.validators.UniqueValue;
 
@@ -27,9 +27,15 @@ public class NewUserRequest {
     }
 
     public User toModel() {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return new User(login, passwordEncoder.encode(password));
+    }
 
-        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        final User user = new User(passwordEncoder.encode(login), password);
-        return user;
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

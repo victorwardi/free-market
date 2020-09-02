@@ -10,17 +10,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class NewUserResponse {
 
     private final String login;
+    private final String psw;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime createdTime;
 
-    public NewUserResponse(String login, LocalDateTime createdTime) {
+    public NewUserResponse(String login, String psw, LocalDateTime createdTime) {
         this.login = login;
+        this.psw = psw;
         this.createdTime = createdTime;
     }
 
     public static NewUserResponse fromModel(User user) {
-        return new NewUserResponse(user.getLogin(), user.getCreatedTime());
+        return new NewUserResponse(user.getLogin(), user.getPassword(), user.getCreatedTime());
     }
 
     public String getLogin() {
@@ -29,5 +31,9 @@ public class NewUserResponse {
 
     public LocalDateTime getCreatedTime() {
         return createdTime;
+    }
+
+    public String getPsw() {
+        return psw;
     }
 }
