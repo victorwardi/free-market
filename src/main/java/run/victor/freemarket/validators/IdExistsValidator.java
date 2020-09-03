@@ -8,6 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
 import org.springframework.util.Assert;
+import run.victor.freemarket.validators.anotations.IdExists;
 
 /**
  * @author Victor Wardi - @victorwardi

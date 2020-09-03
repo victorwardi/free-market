@@ -1,4 +1,4 @@
-package run.victor.freemarket.user;
+package run.victor.freemarket.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @author Victor Wardi - @victorwardi
@@ -29,7 +29,8 @@ public class User {
 
     @NotBlank
     @Size(min = 6)
-    private String password;
+    @Column(name = "password")
+    private String encryptedPassword;
 
     @CreationTimestamp
     private LocalDateTime createdTime;
@@ -39,15 +40,15 @@ public class User {
 
     public User(@NotBlank String login, @NotBlank String password) {
         this.login = login;
-        this.password = password;
+        this.encryptedPassword = new BCryptPasswordEncoder().encode(password);
     }
 
     public String getLogin() {
         return login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEncryptedPassword() {
+        return encryptedPassword;
     }
 
     public LocalDateTime getCreatedTime() {

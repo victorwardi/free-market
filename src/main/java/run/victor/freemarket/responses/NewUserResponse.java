@@ -1,8 +1,9 @@
-package run.victor.freemarket.user;
+package run.victor.freemarket.responses;
 
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import run.victor.freemarket.models.User;
 
 /**
  * @author Victor Wardi - @victorwardi
@@ -10,19 +11,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class NewUserResponse {
 
     private final String login;
-    private final String psw;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime createdTime;
 
-    public NewUserResponse(String login, String psw, LocalDateTime createdTime) {
+    public NewUserResponse(String login, LocalDateTime createdTime) {
         this.login = login;
-        this.psw = psw;
         this.createdTime = createdTime;
     }
 
-    public static NewUserResponse fromModel(User user) {
-        return new NewUserResponse(user.getLogin(), user.getPassword(), user.getCreatedTime());
+    public static NewUserResponse fromUser(User user) {
+        return new NewUserResponse(user.getLogin(), user.getCreatedTime());
     }
 
     public String getLogin() {
@@ -33,7 +32,4 @@ public class NewUserResponse {
         return createdTime;
     }
 
-    public String getPsw() {
-        return psw;
-    }
 }
